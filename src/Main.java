@@ -155,31 +155,53 @@ public class Main {
 
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
+                String title = null;
+                String author = null;
+                int year = 0;
+                boolean borrowed = false;
+
                 String line;
 
                 while ((line = reader.readLine()) != null) {
 
-                    String[] data = line.split(" ");
+                    if (line.startsWith("Tytuł: ")) {
+                        title = line.substring("Tytuł: ".length());
+                    }
 
-                    if (data.length == 4) {
+                    else if (line.startsWith("Autor: ")) {
+                        author = line.substring("Autor: ".length());
+                    }
 
-                        String title = data[0];
-                        String author = data[1];
-                        int year = Integer.parseInt(data[2]);
-                        boolean borrowed = Boolean.parseBoolean(data[3]);
+                    else if (line.startsWith("Rok publikacji: ")) {
+                        year = Integer.parseInt(line.substring("Rok publikacji: ".length()));
+                    }
 
-                        Book book = new Book(title, author, year);
+                    else if (line.startsWith("Czy wypożyczona: ")) {
 
-                        if (borrowed) {
-                            book.borrowBook();
+                        borrowed = Boolean.parseBoolean(
+                                line.substring("Czy wypożyczona: ".length())
+                        );
+
+                        if (title != null && author != null) {
+
+                            Book book = new Book(title, author, year);
+
+                            if (borrowed) {
+                                book.borrowBook();
+                            }
+
+                            books.add(book);
                         }
 
-                        books.add(book);
+                        title = null;
+                        author = null;
+                        year = 0;
+                        borrowed = false;
                     }
                 }
             }
 
-            System.out.println("Wczytano książki!");
+            System.out.println("Wczytano książki! Liczba książek: " + books.size());
 
         } catch (IOException e) {
             System.out.println("Problem z plikiem: " + e.getMessage());
