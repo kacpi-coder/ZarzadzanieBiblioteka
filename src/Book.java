@@ -21,12 +21,16 @@ public class Book {
         if (isBorrowed) {
             System.out.println("Status: Wypożyczona");
         } else {
-            System.out.println("Status: Nie Wypożyczona");
+            System.out.println("Status: Dostępna");
         }
     }
 
     public void borrowBook() {
         isBorrowed = true;
+    }
+
+    public void returnBook() {
+        isBorrowed = false;
     }
 
     public String getTitle() {
