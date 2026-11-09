@@ -15,18 +15,17 @@ public class Reader {
         return id;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
 
-    public void displayInfo(){
+    public void displayInfo() {
         System.out.println("ID: " + id);
         System.out.println("Imię: " + firstName);
         System.out.println("Nazwisko: " + lastName);
     }
-
 }

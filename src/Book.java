@@ -4,13 +4,13 @@ public class Book {
     private String title;
     private String author;
     private int publicationYear;
-    private boolean isBorrowed;
+    private Reader borrowedBy;
 
     public Book(String title, String author, int publicationYear) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
-        this.isBorrowed = false;
+        this.borrowedBy = null;
     }
 
     public void displayInfo() {
@@ -18,19 +18,25 @@ public class Book {
         System.out.println("Author: " + author);
         System.out.println("Publication year: " + publicationYear);
 
-        if (isBorrowed) {
-            System.out.println("Status: Wypożyczona");
-        } else {
+        if (borrowedBy == null) {
             System.out.println("Status: Dostępna");
+        } else {
+            System.out.println("Status: Wypożyczona");
+            System.out.println("Wypożyczył: "
+                    + borrowedBy.getFirstName() + " "
+                    + borrowedBy.getLastName());
+            System.out.println("ID czytelnika: " + borrowedBy.getId());
         }
     }
 
-    public void borrowBook() {
-        isBorrowed = true;
+    public void borrowBook(Reader reader) {
+        if (borrowedBy == null) {
+            borrowedBy = reader;
+        }
     }
 
     public void returnBook() {
-        isBorrowed = false;
+        borrowedBy = null;
     }
 
     public String getTitle() {
@@ -46,6 +52,10 @@ public class Book {
     }
 
     public boolean isBorrowed() {
-        return isBorrowed;
+        return borrowedBy != null;
+    }
+
+    public Reader getBorrowedBy() {
+        return borrowedBy;
     }
 }
