@@ -29,10 +29,11 @@ public class Book {
         }
     }
 
-    public void borrowBook(Reader reader) {
+    public Reader borrowBook(Reader reader) {
         if (borrowedBy == null) {
             borrowedBy = reader;
         }
+        return borrowedBy;
     }
 
     public void returnBook() {
